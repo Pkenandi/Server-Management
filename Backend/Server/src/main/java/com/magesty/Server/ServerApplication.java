@@ -34,5 +34,4 @@ public class ServerApplication {
 					"Personal PC", "http://localhost:8080/server/image/server6.png", SERVER_DOWN));
 		};
 	}
-
 }

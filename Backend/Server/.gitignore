@@ -31,3 +31,21 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Maven artifacts
+pom.xml
+/target/
+
+# Log files
+jxl.log
+jmx.log
+derby.log
+
+# IDEA artifacts and output dirs
+*.iml
+*.ipr
+*.iws
+.idea
+out
+test-output
+atlassian-ide-plugin.xml

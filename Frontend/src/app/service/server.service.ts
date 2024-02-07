@@ -7,8 +7,7 @@ import {Status} from "../enum/status.enum";
 
 @Injectable({ providedIn: 'root' })
 export class ServerService {
-  // @ts-ignore
-  private readonly apiUrl: 'any';
+  private apiUrl: string = "http://localhost:8080/api";
 
   constructor(private http: HttpClient) { }
 
@@ -34,16 +33,16 @@ export class ServerService {
     )
 
   filter$ = (status: Status, response: CustomResponse) => <Observable<CustomResponse>>
-    new Observable<CustomResponse> (
+    new Observable<CustomResponse> ( // Create new Observable
       suscriber => {
         console.log(response);
-        suscriber.next(
-          status === Status.ALL ? { ...response, message: `Servers filtered by ${status} status`} :
-            {
+        suscriber.next( // subscribe to it
+          status === Status.ALL ? { ...response, message: `Servers filtered by ${status} status`} : // if the chosen status = ALL
+            { // else
               ...response,
-              message: response.data.servers
+              message: response.data.servers // filter the message based on Status found
                 .filter(server => server.status === status).length > 0 ? `Servers filtered by ${status === Status.SERVER_UP ? 'SERVER UP' : 'SERVER DOWN'} status` : `No servers of ${status} found`,
-              data: {servers: response.data.servers
+              data: {servers: response.data.servers // filter servers where status = the one in params
                   .filter(server => server.status === status)}
             }
         );
@@ -64,6 +63,6 @@ export class ServerService {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(error)
-    return throwError(`An error occurred - Error code : ${error.status}`)
+    return throwError(`An error occurred - Error code : ${error}`)
   }
 }

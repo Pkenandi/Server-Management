@@ -63,6 +63,6 @@ export class ServerService {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(error)
-    return throwError(`An error occurred - Error code : ${error}`)
+    return throwError(`An error occurred - Error code : ${error.status}`)
   }
 }

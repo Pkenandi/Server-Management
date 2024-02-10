@@ -102,6 +102,20 @@ export class AppComponent implements OnInit {
       )
   }
 
+  printReport(): void {
+    //window.print()
+    let dataType = 'application/vnd.ms.excel.sheet.macroEnabled.12';
+    let tableSelect = document.getElementById('servers')
+    let tableHtml = tableSelect.outerHTML.replace(/ /g, '%20');
+    let downloadLink = document.createElement('a');
+
+    document.body.append(downloadLink);
+    downloadLink.href = 'data:' + dataType + ', ' + tableHtml;
+    downloadLink.download = 'server-report.xls';
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  }
+
   private updateServersList(response: CustomResponse, serverForm: NgForm) {
     this.dataSubject.next(
       {...response, data: {servers: [response.data.server, ...this.dataSubject.value.data.servers]}}
